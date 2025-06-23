@@ -1,6 +1,11 @@
-const express = require('express')
-const path = require('path')
-const fs = require('fs-extra')
+import express from 'express'
+import { fileURLToPath } from 'url'
+import path, { dirname } from 'path'
+import fs from 'fs-extra'
+import cors from 'cors'
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const app = express()
 const PORT = 3000
@@ -8,6 +13,11 @@ const J_FILE = "./data.json"
 
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.json())
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  //allowedHeaders: ['Content-Type', 'Authorization']
+}))
 
 const writeData = async (data) => await fs.writeJson(J_FILE, data, {space:2})
 const readData = async () => await fs.readJson(J_FILE)
