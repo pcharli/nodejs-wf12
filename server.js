@@ -46,6 +46,13 @@ app.post('/api/contact', async (req, res) => {
     res.status(202).json({message: "Données reçues"})
 })
 
+app.get('/api/listing', async (req, res) => {
+    //console.log(req)
+    const oldData = await readData()
+    console.log(oldData)
+    res.status(202).json(oldData)
+})
+
 // Catch-all GET → fichier 404.html
 // Gestion des routes non définies
 app.use((req, res) => {
